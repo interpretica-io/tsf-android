@@ -1,0 +1,84 @@
+---
+# SPDX-License-Identifier: MIT
+
+- comment: |
+    Android devices attached to an agent, served by ta_android.
+
+    Copyright (C) 2026 Interpretica, Unipessoal Lda. All rights reserved.
+
+
+- register:
+
+    - oid: "/agent/android"
+      access: read_only
+      type: none
+      d: |
+         Root of the Android subtree.
+         Name: empty
+
+    - oid: "/agent/android/server"
+      access: read_write
+      type: string
+      d: |
+         Address of the adb server the agent talks to.
+         Name: empty
+         Value: "host:port", "127.0.0.1:5037" by default
+
+    - oid: "/agent/android/device"
+      access: read_only
+      type: none
+      volatile: true
+      d: |
+         A device the adb server lists.
+         Name: device serial
+
+    - oid: "/agent/android/device/state"
+      access: read_only
+      type: string
+      volatile: true
+      d: |
+         Connection state as adb reports it.
+         Name: empty
+         Value: "device", "offline", "unauthorized", "recovery", ...
+
+    - oid: "/agent/android/device/model"
+      access: read_only
+      type: string
+      volatile: true
+      d: |
+         Device model, the ro.product.model property.
+         Name: empty
+
+    - oid: "/agent/android/device/version"
+      access: read_only
+      type: string
+      volatile: true
+      d: |
+         Android version, the ro.build.version.release property.
+         Name: empty
+
+    - oid: "/agent/android/device/sdk"
+      access: read_only
+      type: string
+      volatile: true
+      d: |
+         SDK level, the ro.build.version.sdk property.
+         Name: empty
+
+    - oid: "/agent/android/device/app"
+      access: read_create
+      type: string
+      d: |
+         An installed package. Adding an instance installs the APK
+         named by the value; deleting it uninstalls the package.
+         Name: package name
+         Value: APK path on the agent when adding, empty afterwards
+
+    - oid: "/agent/android/device/app/running"
+      access: read_only
+      type: int32
+      volatile: true
+      d: |
+         Whether a process of the package runs.
+         Name: empty
+         Value: 1 or 0
